@@ -6,6 +6,7 @@
   --primary: #4f46e5;
   --danger: #dc2626;
   --success: #059669;
+  --warning: #d97706;
   --border: #e5e7eb;
   font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
   color: var(--text);
@@ -74,3 +75,21 @@ input, select { font: inherit; padding: 0.45rem 0.6rem; border: 1px solid var(--
 .modal { background: var(--card); border-radius: 8px; padding: 1.25rem; width: 100%; max-width: 440px; max-height: 90vh; overflow: auto; }
 .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; }
 .modal-header h2 { margin: 0; }
+
+.budget-item { margin-bottom: 1rem; }
+.budget-item:last-child { margin-bottom: 0; }
+.budget-head { display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; margin-bottom: 0.3rem; }
+.budget-item.large .budget-label { font-size: 1.15rem; }
+.budget-item.large .budget-amounts { font-size: 1.05rem; }
+.budget-foot { display: flex; justify-content: space-between; gap: 1rem; margin-top: 0.25rem; }
+.progress { width: 100%; height: 0.6rem; background: #eef0f6; border-radius: 999px; overflow: hidden; }
+.progress.large { height: 1.1rem; }
+.progress-fill { height: 100%; border-radius: 999px; transition: width 0.2s ease; }
+.level-ok { background: var(--success); }
+.level-warning { background: var(--warning); }
+.level-danger { background: var(--danger); }
+.budget-editor { display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap; justify-content: flex-end; }
+.budget-editor input { width: 7rem; }
+.inline-form { display: flex; align-items: flex-start; gap: 0.5rem; flex-wrap: wrap; }
+.inline-form .field { display: flex; flex-direction: column; gap: 0.25rem; }
+.list .row-actions { display: flex; align-items: center; justify-content: flex-end; flex-wrap: wrap; gap: 0.25rem; white-space: normal; }

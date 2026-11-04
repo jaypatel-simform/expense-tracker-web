@@ -128,3 +128,29 @@ export type RecentTransaction =
       note: string | null;
       source: string | null;
     };
+
+export interface Budget {
+  id: string;
+  categoryId: string;
+  name: string;
+  amount: number;
+}
+
+export interface BudgetLine {
+  limit: number;
+  spent: number;
+  remaining: number;
+  percentUsed: number;
+}
+
+export interface CategoryBudgetStatus extends BudgetLine {
+  categoryId: string;
+  name: string;
+}
+
+export interface BudgetStatus {
+  month: string;
+  /** null when no overall limit is set. */
+  overall: BudgetLine | null;
+  categories: CategoryBudgetStatus[];
+}

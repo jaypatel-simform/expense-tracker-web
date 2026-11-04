@@ -42,6 +42,7 @@ npm run dev              # http://localhost:5173
 - Categories: default categories (read-only) plus your own custom ones; category picker in the forms. Server errors such as "category in use" are shown.
 - Income: list with pagination; add, edit and delete.
 - Dashboard: spent / income / balance cards, a spending-by-category donut chart, recent transactions, and month navigation.
+- Budgets: set a recurring monthly limit per category and one overall monthly limit on the Categories page; the dashboard shows used / remaining progress bars for the selected month (warning from 80%, danger over 100%).
 - Reports: monthly spending vs income trend chart (3/6/12 months ending at the selected month), month navigation and a by-category breakdown.
 - Profile: set the default currency used to format amounts (no conversion).
 

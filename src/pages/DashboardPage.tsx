@@ -1,7 +1,9 @@
 import { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
+import { getBudgetStatus } from '../api/budgets';
 import { getByCategory, getRecent, getSummary } from '../api/dashboard';
 import { Amount } from '../components/Amount';
+import { BudgetProgress } from '../components/BudgetProgress';
 import { CategoryDonut } from '../components/CategoryDonut';
 import { MonthNav } from '../components/MonthNav';
 import { QueryState } from '../components/QueryState';
@@ -14,6 +16,11 @@ export function DashboardPage() {
     queryKey: ['dashboard', 'by-category', month],
     queryFn: () => getByCategory(month),
   });
+  const budgets = useQuery({
+    queryKey: ['budgets', 'status', month],
+    queryFn: () => getBudgetStatus(month),
+  });
+  const noBudgets = !!budgets.data && !budgets.data.overall && budgets.data.categories.length === 0;
   const recent = useQuery({ queryKey: ['dashboard', 'recent'], queryFn: () => getRecent(10) });
 
   return (
@@ -47,6 +54,40 @@ export function DashboardPage() {
           </div>
         )}
       </QueryState>
+
+      <section className="card">
+        <h2>Budgets</h2>
+        <QueryState
+          isLoading={budgets.isLoading}
+          isError={budgets.isError}
+          isEmpty={noBudgets}
+          emptyMessage="No budgets set. Go to Categories to set a monthly budget."
+          onRetry={() => void budgets.refetch()}
+        >
+          {budgets.data && (
+            <>
+              {budgets.data.overall && (
+                <BudgetProgress
+                  label="Overall"
+                  large
+                  spent={budgets.data.overall.spent}
+                  limit={budgets.data.overall.limit}
+                  percentUsed={budgets.data.overall.percentUsed}
+                />
+              )}
+              {budgets.data.categories.map((c) => (
+                <BudgetProgress
+                  key={c.categoryId}
+                  label={c.name}
+                  spent={c.spent}
+                  limit={c.limit}
+                  percentUsed={c.percentUsed}
+                />
+              ))}
+            </>
+          )}
+        </QueryState>
+      </section>
 
       <div className="grid-2">
         <section className="card">
